@@ -35,10 +35,23 @@ with DAG(
         retries=3,
     )
 
-    t1 >> t2
-
-    templated_command = textwrap.dedent(
+    t1.doc_md = textwrap.dedent(
+        """\
+    #### Task Documentation
+    You can document your task using the attributes `doc_md` (markdown),
+    `doc` (plain text), `doc_rst`, `doc_json`, `doc_yaml` which gets
+    rendered in the UI's Task Instance Details page.
+    ![img](https://imgs.xkcd.com/comics/fixing_problems.png)
+    **Image Credit:** Randall Munroe, [XKCD](https://xkcd.com/license.html)
     """
+    )
+
+    dag.doc_md = __doc__  # providing that you have a docstring at the beginning of the DAG; OR
+    dag.doc_md = """
+    This is a documentation placed anywhere
+    """  # otherwise, type it like this
+    templated_command = textwrap.dedent(
+        """
     {% for i in range(5) %}
         echo "{{ ds }}"
         echo "{{ macros.ds_add(ds, 7)}}"
@@ -51,3 +64,5 @@ with DAG(
         depends_on_past=False,
         bash_command=templated_command,
     )
+
+    t1 >> [t2, t3]
