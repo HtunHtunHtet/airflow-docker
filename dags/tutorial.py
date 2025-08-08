@@ -65,7 +65,7 @@ with DAG(
         bash_command=templated_command,
     )
 
-    #t1 >> [t2, t3]
+    t1 >> [t2, t3]
 
     #t1.set_downstream(t2)
 
@@ -76,19 +76,19 @@ with DAG(
 
     # The bit shift operator can also be
     # used to chain operations:
-    t1 >> t2
+    #t1 >> t2
 
     # And the upstream dependency with the
     # bit shift operator:
-    t2 << t1
+    #t2 << t1
 
     # Chaining multiple dependencies becomes
     # concise with the bit shift operator:
-    t1 >> t2 >> t3
+    #t1 >> t2 >> t3
 
     # A list of tasks can also be set as
     # dependencies. These operations
     # all have the same effect:
-    t1.set_downstream([t2, t3])
-    t1 >> [t2, t3]
-    [t2, t3] << t1
+    #t1.set_downstream([t2, t3])
+    #t1 >> [t2, t3]
+    #[t2, t3] << t1
