@@ -36,3 +36,18 @@ with DAG(
     )
 
     t1 >> t2
+
+    templated_command = textwrap.dedent(
+    """
+    {% for i in range(5) %}
+        echo "{{ ds }}"
+        echo "{{ macros.ds_add(ds, 7)}}"
+    {% endfor %}
+    """
+    )
+
+    t3 = BashOperator(
+        task_id="templated",
+        depends_on_past=False,
+        bash_command=templated_command,
+    )
