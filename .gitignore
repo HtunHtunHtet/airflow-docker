@@ -1,0 +1,23 @@
+# Airflow logs
+logs/
+
+# Docker volumes and runtime data
+*.log
+
+# Environment variables (if they contain secrets)
+# .env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
