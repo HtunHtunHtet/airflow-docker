@@ -17,7 +17,8 @@ dag = DAG(
     'product_description_poc',
     default_args=default_args,
     description='POC for product description generation',
-    schedule_interval=timedelta(days=1),
+    schedule_interval=None,  # Manual trigger only
+    catchup=False,  # Don't run missed schedules
 )
 
 def fetch_product_data():

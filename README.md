@@ -37,7 +37,11 @@ docker-compose up airflow-init
 
 ### 4. Start All Services
 ```bash
-docker-compose up -d --no-deps airflow-webserver airflow-scheduler airflow-worker airflow-triggerer
+# Start database services first
+docker-compose up -d --no-deps mysql redis
+
+# Wait for databases to be ready, then start Airflow services
+sleep 10 && docker-compose up -d --no-deps airflow-webserver airflow-scheduler
 ```
 
 ### 5. Access Airflow Web UI
@@ -92,8 +96,8 @@ The project uses a `.env` file for configuration:
 # Build custom image (after Dockerfile changes)
 docker-compose build
 
-# Start all services (recommended method)
-docker-compose up -d --no-deps airflow-webserver airflow-scheduler airflow-worker airflow-triggerer
+# Start database services first, then Airflow services (recommended method)
+docker-compose up -d --no-deps mysql redis && sleep 10 && docker-compose up -d --no-deps airflow-webserver airflow-scheduler
 
 # Stop all services
 docker-compose down
